@@ -29,6 +29,15 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
         }
 
+        .logo-mindspace {
+            font-size: 1.8rem;
+            letter-spacing: -0.5px;
+            color: #fff !important;
+            transition: transform 0.3s ease;
+        }
+        .logo-mindspace:hover {
+            transform: scale(1.05);
+        }
         .navbar-brand {
             font-weight: 700;
             font-size: 1.6rem;
@@ -86,8 +95,8 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
         <div class="container">
-            <a class="navbar-brand" href="{{ route('home') }}">
-                <i class="bi bi-wind"></i> Mindspace
+            <a class="navbar-brand logo-mindspace" href="{{ route('home') }}">
+                <i class="bi bi-flower1 text-success me-1"></i> <span class="fw-bold">Mind</span><span class="text-success fw-light">space</span>
             </a>
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -142,7 +151,7 @@
 
     <footer class="text-center text-muted">
         <div class="container">
-            <h5 class="fw-bold mb-3 text-dark">Mindspace</h5>
+            <h5 class="mb-3 text-dark fw-bold"><i class="bi bi-flower1 text-success me-1"></i> Mind<span class="text-success fw-light">space</span></h5>
             <p class="mb-3">Il tuo rifugio per la mente e l'anima. Blog italiano di Psicologia e Mindfulness.</p>
             <div class="mb-4">
                 <a href="#" class="text-muted me-3"><i class="bi bi-instagram"></i></a>
