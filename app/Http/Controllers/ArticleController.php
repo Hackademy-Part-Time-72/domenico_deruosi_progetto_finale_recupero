@@ -24,9 +24,9 @@ class ArticleController extends Controller implements HasMiddleware
     public function index()
     {
         if (Auth::check()) {
-            $articles = Auth::user()->articles()->with('tags')->latest()->paginate(12);
+            $articles = Auth::user()->articles()->with('tags')->orderBy('created_at', 'asc')->paginate(12);
         } else {
-            $articles = Article::with(['user', 'tags'])->latest()->paginate(12);
+            $articles = Article::with(['user', 'tags'])->orderBy('created_at', 'asc')->paginate(12);
         }
         return view('articles.index', compact('articles'));
     }

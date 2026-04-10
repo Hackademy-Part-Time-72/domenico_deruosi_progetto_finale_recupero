@@ -38,6 +38,9 @@
             @forelse($articles as $article)
             <div class="col-md-4 mb-4">
                 <div class="card card-custom h-100 border-0">
+                    @if($article->thumbnail)
+                    <img src="{{ $article->thumbnail }}" class="card-img-top" alt="{{ $article->title }}" style="height: 200px; object-fit: cover;">
+                    @endif
                     <div class="p-4 d-flex flex-column h-100">
                         <div class="mb-3">
                             <span class="badge bg-light text-success align-self-start py-2 px-3">Articolo</span>

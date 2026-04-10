@@ -19,41 +19,44 @@
     <div class="row">
         @forelse($articles as $article)
         <div class="col-md-6 mb-4">
-            <div class="card-custom h-100 p-4 border-0 shadow-sm bg-white">
-                <div class="d-flex justify-content-between align-items-start mb-3">
-                    <span class="badge bg-light text-success py-2 px-3">Articolo</span>
-                    <div class="dropdown">
-                        <button class="btn btn-link text-muted p-0" type="button" data-bs-toggle="dropdown">
-                            <i class="bi bi-three-dots-vertical"></i>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm">
-                            <li><a class="dropdown-item" href="{{ route('articles.edit', $article) }}"><i class="bi bi-pencil me-2"></i> Modifica</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li>
-                                <form action="{{ route('articles.destroy', $article) }}" method="POST" onsubmit="return confirm('Sei sicuro di voler eliminare questo articolo?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="dropdown-item text-danger"><i class="bi bi-trash me-2"></i> Elimina</button>
-                                </form>
-                            </li>
-                        </ul>
+            <div class="card-custom h-100 overflow-hidden border-0 shadow-sm bg-white">
+                @if($article->thumbnail)
+                <img src="{{ $article->thumbnail }}" class="card-img-top" alt="{{ $article->title }}" style="height: 200px; object-fit: cover;">
+                @endif
+                <div class="p-4 d-flex flex-column h-100">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <span class="badge bg-light text-success py-2 px-3">Articolo</span>
+                        <div class="dropdown">
+                            <button class="btn btn-link text-muted p-0" type="button" data-bs-toggle="dropdown">
+                                <i class="bi bi-three-dots-vertical"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm">
+                                <li><a class="dropdown-item" href="{{ route('articles.edit', $article) }}"><i class="bi bi-pencil me-2"></i> Modifica</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <form action="{{ route('articles.destroy', $article) }}" method="POST" onsubmit="return confirm('Sei sicuro di voler eliminare questo articolo?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="dropdown-item text-danger"><i class="bi bi-trash me-2"></i> Elimina</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-                
-                <h4 class="fw-bold mb-3">{{ $article->title }}</h4>
-                <p class="text-muted flex-grow-1 mb-4">
-                    {{ \Illuminate\Support\Str::limit($article->content, 150) }}
-                </p>
+                    
+                    <h4 class="fw-bold mb-3">{{ $article->title }}</h4>
+                    <p class="text-muted flex-grow-1 mb-4">
+                        {{ \Illuminate\Support\Str::limit($article->content, 150) }}
+                    </p>
 
-                <div class="mt-auto d-flex justify-content-between align-items-center pt-3 border-top">
-                    <div>
-                        @foreach($article->tags as $tag)
-                            <span class="badge bg-light text-secondary me-1">#{{ $tag->name }}</span>
-                        @endforeach
+                    <div class="mt-auto d-flex justify-content-between align-items-center pt-3 border-top">
+                        <div class="small text-muted">
+                            <i class="bi bi-calendar3 me-1"></i> {{ $article->created_at->format('d/m/Y') }}
+                        </div>
+                        <a href="{{ route('articles.show', $article) }}" class="btn btn-link text-success p-0 text-decoration-none fw-bold">
+                            Dettagli <i class="bi bi-arrow-right"></i>
+                        </a>
                     </div>
-                    <a href="{{ route('articles.show', $article) }}" class="btn btn-link text-success p-0 text-decoration-none fw-bold">
-                        Dettagli <i class="bi bi-arrow-right"></i>
-                    </a>
                 </div>
             </div>
         </div>
