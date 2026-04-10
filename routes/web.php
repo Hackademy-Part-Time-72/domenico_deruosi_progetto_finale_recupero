@@ -30,13 +30,8 @@ Route::post('/contact', [ContactController::class, 'send'])
     ->name('contact.send')
     ->middleware('throttle:5,1'); // 5 messaggi al minuto
 
-// ARTICOLO PUBBLICO (eager loaded)
-Route::resource('articles', ArticleController::class)->only(['show']);
-
-// CRUD PROTETTO
-Route::middleware(['auth'])->group(function () {
-    Route::resource('articles', ArticleController::class)->except(['show']);
-});
+// ARTICOLI
+Route::resource('articles', ArticleController::class);
 
 // AUTH 
 require __DIR__ . '/auth.php';

@@ -7,14 +7,27 @@ use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 
-class ArticleController extends Controller
+class ArticleController extends Controller implements HasMiddleware
 {
     use AuthorizesRequests;
 
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('auth', except: ['index', 'show']),
+        ];
+    }
+
     public function index()
     {
-        $articles = Auth::user()->articles()->with('tags')->latest()->paginate(12);
+        if (Auth::check()) {
+            $articles = Auth::user()->articles()->with('tags')->latest()->paginate(12);
+        } else {
+            $articles = Article::with(['user', 'tags'])->latest()->paginate(12);
+        }
         return view('articles.index', compact('articles'));
     }
 
