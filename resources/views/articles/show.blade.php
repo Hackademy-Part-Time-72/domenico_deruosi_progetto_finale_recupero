@@ -16,14 +16,14 @@
                     <h1 class="fw-bold display-5 mb-3">{{ $article->title }}</h1>
                     <div class="d-flex align-items-center text-muted mb-4">
                         <i class="bi bi-person-circle me-2"></i>
-                        <span>Scritto da {{ $article->user->name ?? 'Autore' }}</span>
+                        <span>Scritto da {{ $article->user?->name ?? 'Autore' }}</span>
                         <span class="mx-2">&bull;</span>
                         <i class="bi bi-calendar3 me-2"></i>
                         <span>{{ $article->created_at->format('d M Y') }}</span>
                     </div>
                 </header>
 
-                <div class="article-content fs-5 leading-relaxed">
+                <div class="article-content fs-5 leading-relaxed text-break">
                     {!! nl2br(e($article->content)) !!}
                 </div>
 

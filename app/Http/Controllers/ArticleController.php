@@ -3,39 +3,86 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class ArticleController extends Controller
 {
+    use AuthorizesRequests;
+
     public function index()
     {
-        $articles = Auth::user()->articles()->latest()->get();
+        $articles = Auth::user()->articles()->with('tags')->latest()->paginate(12);
         return view('articles.index', compact('articles'));
     }
 
     public function show(Article $article)
     {
+        $article->load(['user', 'tags']);
         return view("articles.show", compact("article"));
     }
 
     public function create()
     {
-        return view('articles.create');
+        $tags = Tag::all();
+        return view('articles.create', compact('tags'));
     }
 
     public function store(Request $request)
     {
-        $request->validate([
+        $data = $request->validate([
             'title' => 'required|min:5|max:255',
             'content' => 'required|min:10',
+            'tags' => 'nullable|array',
+            'tags.*' => 'integer|exists:tags,id',
         ]);
 
-        Auth::user()->articles()->create([
-            'title' => $request->title,
-            'content' => $request->content,
+        $article = Auth::user()->articles()->create([
+            'title' => $data['title'],
+            'content' => $data['content'],
         ]);
+
+        if (!empty($data['tags'])) {
+            $article->tags()->attach($data['tags']);
+        }
 
         return redirect()->route('articles.index')->with('success', 'Articolo creato con successo!');
+    }
+
+    public function edit(Article $article)
+    {
+        $this->authorize('update', $article);
+        $tags = Tag::all();
+        return view('articles.edit', compact('article', 'tags'));
+    }
+
+    public function update(Request $request, Article $article)
+    {
+        $this->authorize('update', $article);
+
+        $data = $request->validate([
+            'title' => 'required|min:5|max:255',
+            'content' => 'required|min:10',
+            'tags' => 'nullable|array',
+            'tags.*' => 'integer|exists:tags,id',
+        ]);
+
+        $article->update([
+            'title' => $data['title'],
+            'content' => $data['content'],
+        ]);
+
+        $article->tags()->sync($data['tags'] ?? []);
+
+        return redirect()->route('articles.index')->with('success', 'Articolo aggiornato con successo!');
+    }
+
+    public function destroy(Article $article)
+    {
+        $this->authorize('delete', $article);
+        $article->delete();
+        return redirect()->route('articles.index')->with('success', 'Articolo eliminato con successo!');
     }
 }

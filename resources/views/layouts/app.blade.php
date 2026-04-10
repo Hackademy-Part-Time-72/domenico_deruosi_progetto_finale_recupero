@@ -4,16 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mindspace - Mindfulness & Psicologia</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>@yield('title', 'Mindspace - Psicologia e Mindfulness')</title>
 
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Google Font -->
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
     <!-- Bootstrap Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" integrity="sha384-XGjxtQfXaH2tnPFa9x+ruJTuLE3Aa6LhHSqEgt5WMqMRPMWhLQvIg4X0o7hkCx7" crossorigin="anonymous">
 
     <style>
         body {
@@ -22,9 +23,8 @@
             color: #4a4a4a;
         }
 
-        /* NAVBAR */
         .navbar {
-            background: rgba(107, 142, 35, 0.9);
+            background: rgba(107, 142, 35, 0.95);
             backdrop-filter: blur(10px);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
         }
@@ -41,16 +41,13 @@
             font-weight: 500;
         }
 
-        /* HERO */
         .hero {
             background: linear-gradient(135deg, #8da399, #a8dadc);
             color: white;
             padding: 100px 0;
             border-radius: 0 0 50px 50px;
-            box-shadow: inset 0 -10px 20px rgba(0,0,0,0.05);
         }
 
-        /* CARD */
         .card-custom {
             border: none;
             border-radius: 24px;
@@ -65,26 +62,17 @@
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
         }
 
-        /* BUTTON */
-        .btn {
-            border-radius: 14px;
-            padding: 10px 25px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
         .btn-primary {
             background-color: #6b8e23;
             border-color: #6b8e23;
+            border-radius: 12px;
         }
 
         .btn-primary:hover {
             background-color: #556b2f;
             border-color: #556b2f;
-            transform: scale(1.05);
         }
 
-        /* FOOTER */
         footer {
             margin-top: 100px;
             padding: 40px 0;
@@ -96,11 +84,9 @@
 
 <body>
 
-    <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
         <div class="container">
-
-            <a class="navbar-brand fw-bold text-white" href="/">
+            <a class="navbar-brand" href="{{ route('home') }}">
                 <i class="bi bi-wind"></i> Mindspace
             </a>
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -109,74 +95,66 @@
 
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto align-items-center">
-
                     <li class="nav-item">
-                        <a class="nav-link" href="/">Home</a>
+                        <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Psicologia</a>
+                        <a class="nav-link" href="{{ route('home') }}#articoli">Articoli</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Mindfulness</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('contact.show') }}">Contatti</a>
+                        <a class="nav-link {{ request()->routeIs('contact.show') ? 'active' : '' }}" href="{{ route('contact.show') }}">Contatti</a>
                     </li>
 
                     @auth
-                    <li class="nav-item mx-lg-2">
-                        <a href="/articles" class="btn btn-light btn-sm text-success">
-                            <i class="bi bi-journal-text"></i> I miei articoli
+                    <li class="nav-item dropdown ms-lg-3">
+                        <a class="btn btn-light btn-sm text-success dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            {{ Auth::user()->name }}
                         </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <form method="POST" action="/logout">
-                            @csrf
-                            <button class="btn btn-outline-light btn-sm">
-                                Logout
-                            </button>
-                        </form>
+                        <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm">
+                            <li><a class="dropdown-item" href="{{ route('articles.index') }}">I miei articoli</a></li>
+                            <li><a class="dropdown-item" href="{{ route('articles.create') }}">Crea articolo</a></li>
+                            <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Profilo</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button class="dropdown-item text-danger" type="submit">Logout</button>
+                                </form>
+                            </li>
+                        </ul>
                     </li>
                     @else
-                    <li class="nav-item me-2">
-                        <a href="/login" class="btn btn-link text-white text-decoration-none">Login</a>
+                    <li class="nav-item ms-lg-3">
+                        <a href="{{ route('login') }}" class="btn btn-link text-white text-decoration-none">Login</a>
                     </li>
-
                     <li class="nav-item">
-                        <a href="/register" class="btn btn-light btn-sm text-success">Unisciti a noi</a>
+                        <a href="{{ route('register') }}" class="btn btn-light btn-sm text-success px-3 rounded-pill">Unisciti a noi</a>
                     </li>
                     @endauth
-
                 </ul>
             </div>
-
         </div>
     </nav>
 
-    <!-- CONTENUTO -->
     <main>
         @yield('content')
     </main>
 
-    <!-- FOOTER -->
     <footer class="text-center text-muted">
         <div class="container">
             <h5 class="fw-bold mb-3 text-dark">Mindspace</h5>
-            <p class="mb-3">Il tuo rifugio per la mente e l'anima.</p>
+            <p class="mb-3">Il tuo rifugio per la mente e l'anima. Blog italiano di Psicologia e Mindfulness.</p>
             <div class="mb-4">
                 <a href="#" class="text-muted me-3"><i class="bi bi-instagram"></i></a>
                 <a href="#" class="text-muted me-3"><i class="bi bi-facebook"></i></a>
                 <a href="#" class="text-muted"><i class="bi bi-twitter-x"></i></a>
             </div>
             <p class="mb-1">© {{ date('Y') }} Mindspace. Tutti i diritti riservati.</p>
-            <small>Creato con cura per il benessere personale.</small>
         </div>
     </footer>
 
-    <!-- JS Bootstrap -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc4s9bIOgUxi8T/jzmBvQ/gBnFTLBXoK0PQKP6YnROR" crossorigin="anonymous"></script>
 
 </body>
-
 </html>

@@ -8,12 +8,12 @@ use App\Mail\ContactMail;
 
 class ContactController extends Controller
 {
-    public function show()
+    public function index()
     {
         return view('contact');
     }
 
-    public function submit(Request $request)
+    public function send(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',
@@ -23,8 +23,14 @@ class ContactController extends Controller
 
         $data = $request->only('name', 'email', 'message');
 
-        Mail::to('admin@mindspace.com')->send(new ContactMail($data));
+        try {
+            Mail::to(config('mail.from.address'))->send(new ContactMail($data));
+        } catch (\Exception $e) {
+            return back()
+                ->withInput()
+                ->with('error', 'Impossibile inviare il messaggio. Riprova più tardi.');
+        }
 
-        return back()->with('success', 'Grazie per averci contattato! Ti risponderemo al più presto.');
+        return back()->with('success', 'Messaggio ricevuto! Ti risponderemo al più presto.');
     }
 }

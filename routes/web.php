@@ -3,25 +3,40 @@
 use Illuminate\Support\Facades\Route;
 use App\Models\Article;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ProfileController;
 
+// HOMEPAGE
 Route::get('/', function () {
-    $articles = Article::latest()->take(10)->get();
+    $articles = Article::with(['user', 'tags'])->latest()->take(10)->get();
     return view('homepage', compact('articles'));
+})->name('home');
+
+// DASHBOARD 
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+// PROFILO
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-//  AUTH VIEWS
-Route::get('/login', function () {
-    return view('auth.login');
-})->name('login');
+// CONTATTI (con rate limiting)
+Route::get('/contact', [ContactController::class, 'index'])->name('contact.show');
+Route::post('/contact', [ContactController::class, 'send'])
+    ->name('contact.send')
+    ->middleware('throttle:5,1'); // 5 messaggi al minuto
 
-Route::get('/register', function () {
-    return view('auth.register');
+// ARTICOLO PUBBLICO (eager loaded)
+Route::resource('articles', ArticleController::class)->only(['show']);
+
+// CRUD PROTETTO
+Route::middleware(['auth'])->group(function () {
+    Route::resource('articles', ArticleController::class)->except(['show']);
 });
 
-// ARTICOLI PUBBLICI
-Route::resource('articles', ArticleController::class);
-
-// ERRORE contact. show
-Route::get('/contact', function () {
-    return 'Pagina contatti';
-})->name('contact.show');
+// AUTH 
+require __DIR__ . '/auth.php';

@@ -9,7 +9,6 @@ class Article extends Model
     protected $fillable = [
         'title',
         'content',
-        'user_id'
     ];
 
     // Relazione: un articolo appartiene a un utente
