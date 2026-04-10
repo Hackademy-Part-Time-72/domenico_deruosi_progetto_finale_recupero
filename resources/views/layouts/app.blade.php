@@ -119,6 +119,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">Mindfulness</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('contact.show') }}">Contatti</a>
+                    </li>
 
                     @auth
                     <li class="nav-item mx-lg-2">

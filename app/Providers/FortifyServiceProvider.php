@@ -8,20 +8,34 @@ use App\Actions\Fortify\CreateNewUser;
 
 class FortifyServiceProvider extends ServiceProvider
 {
+    /**
+     * Register services.
+     */
     public function register(): void
     {
         //
     }
 
+    /**
+     * Bootstrap services.
+     */
     public function boot(): void
     {
-        // Registrazione utenti
+        // Creazione utenti
         Fortify::createUsersUsing(CreateNewUser::class);
 
         // View login
-        Fortify::loginView(fn() => view('auth.login'));
+        Fortify::loginView(function () {
+            return view('auth.login');
+        });
 
-        // View register
-        Fortify::registerView(fn() => view('auth.register'));
+        // View registrazione
+        Fortify::registerView(function () {
+            return view('auth.register');
+        });
+
+        // Redirect dopo login e registrazione
+        Fortify::redirects('login', '/articles');
+        Fortify::redirects('register', '/articles');
     }
 }

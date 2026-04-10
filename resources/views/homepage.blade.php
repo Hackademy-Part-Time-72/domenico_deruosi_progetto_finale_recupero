@@ -5,7 +5,7 @@
 {{-- HERO --}}
 <div class="hero text-center mb-5">
     <div class="container">
-        <h1 class="fw-bold display-4">Mindspace</h1>
+        <h1 class="fw-bold display-4">Mindspace Blog</h1>
         <p class="lead mb-4">Esplora la tua mente, trova equilibrio e benessere nel caos quotidiano.</p>
         <div class="d-flex justify-content-center gap-3">
             <a href="#" class="btn btn-light btn-lg text-success shadow-sm">Inizia a Meditare</a>
@@ -45,7 +45,7 @@
                     </p>
                     <div class="mt-auto pt-3 border-top d-flex justify-content-between align-items-center">
                         <small class="text-muted"><i class="bi bi-clock me-1"></i> 5 min lettura</small>
-                        <a href="#" class="btn btn-link text-success p-0 text-decoration-none fw-bold">
+                        <a href="{{ route('articles.show', $article) }}" class="btn btn-link text-success p-0 text-decoration-none fw-bold">
                             Leggi di più <i class="bi bi-arrow-right"></i>
                         </a>
                     </div>
