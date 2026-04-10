@@ -1,29 +1,43 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Profile') }}
-        </h2>
-    </x-slot>
+@extends('layouts.app')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
+@section('title', 'Modifica Profilo - Mindspace')
+
+@section('content')
+<div class="container py-5 mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card card-custom p-4 shadow-lg border-0 mb-4">
+                <div class="text-center mb-4 border-bottom pb-4">
+                    <h2 class="fw-bold text-dark"><i class="bi bi-person-gear text-success"></i> Il Tuo Profilo</h2>
+                    <p class="text-muted small">Gestisci le tue informazioni personali e la sicurezza dell'account.</p>
+                </div>
+
+                <div class="mb-5">
+                    <h5 class="fw-bold text-dark mb-4">Informazioni del Profilo</h5>
                     @include('profile.partials.update-profile-information-form')
                 </div>
-            </div>
 
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
+                <div class="mb-5 border-top pt-5">
+                    <h5 class="fw-bold text-dark mb-4">Aggiorna Password</h5>
                     @include('profile.partials.update-password-form')
                 </div>
-            </div>
 
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
+                <div class="border-top pt-5">
+                    <h5 class="fw-bold text-danger mb-4">Zona Pericolo</h5>
+                    <div class="alert alert-danger border-0 rounded-3 small">
+                        Attenzione: queste azioni non possono essere annullate.
+                    </div>
                     @include('profile.partials.delete-user-form')
                 </div>
             </div>
+
+            <div class="text-center mt-5">
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="btn btn-outline-danger btn-sm px-4 rounded-pill">Logout esplicito</button>
+                </form>
+            </div>
         </div>
     </div>
-</x-app-layout>
+</div>
+@endsection

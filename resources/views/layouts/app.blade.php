@@ -120,6 +120,7 @@
                             {{ Auth::user()->name }}
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm">
+                            <li><a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a></li>
                             <li><a class="dropdown-item" href="{{ route('articles.index') }}">I miei articoli</a></li>
                             <li><a class="dropdown-item" href="{{ route('articles.create') }}">Crea articolo</a></li>
                             <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Profilo</a></li>
@@ -131,6 +132,13 @@
                                 </form>
                             </li>
                         </ul>
+                    </li>
+                    <!-- Logout diretto solo su mobile -->
+                    <li class="nav-item d-lg-none mt-3">
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button class="btn btn-outline-danger btn-sm w-100" type="submit">Logout</button>
+                        </form>
                     </li>
                     @else
                     <li class="nav-item ms-lg-3">
