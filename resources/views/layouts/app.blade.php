@@ -9,7 +9,7 @@
 
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    
+
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
@@ -35,9 +35,11 @@
             color: #fff !important;
             transition: transform 0.3s ease;
         }
+
         .logo-mindspace:hover {
             transform: scale(1.05);
         }
+
         .navbar-brand {
             font-weight: 700;
             font-size: 1.6rem;
@@ -124,7 +126,9 @@
                             <li><a class="dropdown-item" href="{{ route('articles.index') }}">I miei articoli</a></li>
                             <li><a class="dropdown-item" href="{{ route('articles.create') }}">Crea articolo</a></li>
                             <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Profilo</a></li>
-                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
                             <li>
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
@@ -174,4 +178,5 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc4s9bIOgUxi8T/jzmBvQ/gBnFTLBXoK0PQKP6YnROR" crossorigin="anonymous"></script>
 
 </body>
+
 </html>

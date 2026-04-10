@@ -25,7 +25,12 @@
                 @endif
                 <div class="p-4 d-flex flex-column h-100">
                     <div class="d-flex justify-content-between align-items-start mb-3">
-                        <span class="badge bg-light text-success py-2 px-3">Articolo</span>
+                        <div class="d-flex flex-wrap gap-1">
+                            <span class="badge bg-light text-success py-2 px-3">Articolo</span>
+                            @foreach($article->tags as $tag)
+                                <span class="badge bg-success text-white py-2 px-2" style="font-size: 0.7rem;">#{{ $tag->name }}</span>
+                            @endforeach
+                        </div>
                         <div class="dropdown">
                             <button class="btn btn-link text-muted p-0" type="button" data-bs-toggle="dropdown">
                                 <i class="bi bi-three-dots-vertical"></i>
@@ -44,7 +49,9 @@
                         </div>
                     </div>
                     
-                    <h4 class="fw-bold mb-3">{{ $article->title }}</h4>
+                    <h4 class="fw-bold mb-1">{{ $article->title }}</h4>
+                    <small class="text-muted mb-3 d-block"><i class="bi bi-person me-1"></i> Di {{ $article->user->name }}</small>
+                    
                     <p class="text-muted flex-grow-1 mb-4">
                         {{ \Illuminate\Support\Str::limit($article->content, 150) }}
                     </p>

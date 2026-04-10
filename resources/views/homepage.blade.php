@@ -42,10 +42,17 @@
                     <img src="{{ $article->thumbnail }}" class="card-img-top" alt="{{ $article->title }}" style="height: 200px; object-fit: cover;">
                     @endif
                     <div class="p-4 d-flex flex-column h-100">
-                        <div class="mb-3">
-                            <span class="badge bg-light text-success align-self-start py-2 px-3">Articolo</span>
+                        <div class="mb-3 d-flex justify-content-between align-items-start">
+                            <span class="badge bg-light text-success py-2 px-3">Articolo</span>
+                            <div class="text-end">
+                                @foreach($article->tags as $tag)
+                                    <span class="badge bg-success text-white small" style="font-size: 0.7rem;">#{{ $tag->name }}</span>
+                                @endforeach
+                            </div>
                         </div>
-                        <h4 class="fw-bold mb-3 text-dark">{{ $article->title }}</h4>
+                        <h4 class="fw-bold mb-1 text-dark">{{ $article->title }}</h4>
+                        <small class="text-muted mb-3 d-block"><i class="bi bi-person me-1"></i> Di {{ $article->user->name }}</small>
+                        
                         <p class="text-muted flex-grow-1">
                             {{ \Illuminate\Support\Str::limit($article->content, 130) }}
                         </p>
