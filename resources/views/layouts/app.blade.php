@@ -19,7 +19,10 @@
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            background: #fdfaf6;
+            background: linear-gradient(rgba(253, 250, 246, 0.9), rgba(253, 250, 246, 0.9)), url('https://images.unsplash.com/photo-1549472643-4702167d4fcc?q=80&w=1600&auto=format&fit=crop');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
             color: #4a4a4a;
         }
 
@@ -53,7 +56,7 @@
         }
 
         .hero {
-            background: linear-gradient(135deg, #8da399, #a8dadc);
+            background: linear-gradient(135deg, rgba(141, 163, 153, 0.9), rgba(168, 218, 220, 0.9));
             color: white;
             padding: 100px 0;
             border-radius: 0 0 50px 50px;
@@ -64,7 +67,7 @@
             border-radius: 24px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
             transition: all 0.4s ease;
-            background: #fff;
+            background: rgba(255, 255, 255, 0.95);
             overflow: hidden;
         }
 
@@ -87,8 +90,17 @@
         footer {
             margin-top: 100px;
             padding: 40px 0;
-            background: #fff;
+            background: rgba(255, 255, 255, 0.9);
             border-top: 1px solid #eee;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 2s ease-out forwards;
         }
     </style>
 </head>
