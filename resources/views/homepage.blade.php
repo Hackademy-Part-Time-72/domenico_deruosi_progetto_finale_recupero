@@ -3,7 +3,7 @@
 @section('content')
 
 {{-- CITAZIONE ANIMATA CON IMMAGINE --}}
-<div class="py-5 text-center fade-in" style="background: linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.7)), url('https://images.unsplash.com/photo-1470114756574-941c617f2bc7?q=80&w=1600&auto=format&fit=crop'); background-size: cover; background-position: center; border-radius: 0 0 50px 50px;">
+<div class="py-5 text-center fade-in" style="background: linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.7)), url('https://images.pexels.com/photos/33596970/pexels-photo-33596970.jpeg?auto=compress&cs=tinysrgb&w=1600'); background-size: cover; background-position: center; border-radius: 0 0 50px 50px;">
     <div class="container py-5">
         <blockquote class="blockquote">
             <p class="fs-2 fw-light font-italic text-dark mb-4">“Se ascoltiamo dalla mente silenziosa, ogni canto di uccello e ogni sussurro dei rami di pino nel vento ci parleranno.”</p>
