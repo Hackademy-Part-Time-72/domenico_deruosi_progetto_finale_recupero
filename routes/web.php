@@ -6,9 +6,9 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProfileController;
 
-// HOMEPAGE
+// HOMEPAGE - Ordinata dal più recente al più vecchio
 Route::get('/', function () {
-    $articles = Article::with(['user', 'tags'])->orderBy('created_at', 'asc')->take(10)->get();
+    $articles = Article::with(['user', 'tags'])->latest()->take(10)->get();
     return view('homepage', compact('articles'));
 })->name('home');
 

@@ -42,6 +42,46 @@ class AppServiceProvider extends ServiceProvider
             };
         });
 
+        // FORGOT PASSWORD VIEW
+        $this->app->singleton(\Laravel\Fortify\Contracts\RequestPasswordResetLinkViewResponse::class, function () {
+            return new class implements \Laravel\Fortify\Contracts\RequestPasswordResetLinkViewResponse {
+                public function toResponse($request)
+                {
+                    return response()->view('auth.forgot-password');
+                }
+            };
+        });
+
+        // RESET PASSWORD VIEW
+        $this->app->singleton(\Laravel\Fortify\Contracts\ResetPasswordViewResponse::class, function () {
+            return new class implements \Laravel\Fortify\Contracts\ResetPasswordViewResponse {
+                public function toResponse($request)
+                {
+                    return response()->view('auth.reset-password');
+                }
+            };
+        });
+
+        // VERIFY EMAIL VIEW
+        $this->app->singleton(\Laravel\Fortify\Contracts\VerifyEmailViewResponse::class, function () {
+            return new class implements \Laravel\Fortify\Contracts\VerifyEmailViewResponse {
+                public function toResponse($request)
+                {
+                    return response()->view('auth.verify-email');
+                }
+            };
+        });
+
+        // CONFIRM PASSWORD VIEW
+        $this->app->singleton(\Laravel\Fortify\Contracts\ConfirmPasswordViewResponse::class, function () {
+            return new class implements \Laravel\Fortify\Contracts\ConfirmPasswordViewResponse {
+                public function toResponse($request)
+                {
+                    return response()->view('auth.confirm-password');
+                }
+            };
+        });
+
         // LOGOUT
         $this->app->singleton(\Laravel\Fortify\Contracts\LogoutResponse::class, function () {
             return new class implements \Laravel\Fortify\Contracts\LogoutResponse {
