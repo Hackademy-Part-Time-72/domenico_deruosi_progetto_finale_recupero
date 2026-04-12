@@ -21,16 +21,36 @@ class ArticleController extends Controller implements HasMiddleware
         ];
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        if (Auth::check()) {
-            // I miei articoli ordinati dal più recente con caricamento relazioni per evitare N+1
-            $articles = Auth::user()->articles()->with(['user', 'tags'])->latest()->paginate(12);
-        } else {
-            // Tutti gli articoli ordinati dal più recente
-            $articles = Article::with(['user', 'tags'])->latest()->paginate(12);
+        $query = Article::query()->with(['user', 'tags'])->latest();
+
+        // Filtro per ricerca testuale
+        if ($request->has('search')) {
+            $search = $request->get('search');
+            $query->where(function($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                  ->orWhere('content', 'like', "%{$search}%");
+            });
         }
-        return view('articles.index', compact('articles'));
+
+        // Filtro per Tag
+        if ($request->has('tag')) {
+            $tagId = $request->get('tag');
+            $query->whereHas('tags', function($q) use ($tagId) {
+                $q->where('tags.id', $tagId);
+            });
+        }
+
+        // Se l'utente è loggato e vuole vedere i SUOI articoli (es. via Dashboard)
+        if ($request->has('mine') && Auth::check()) {
+            $query->where('user_id', Auth::id());
+        }
+
+        $articles = $query->paginate(12)->withQueryString();
+        $tags = Tag::all(); // Per la sidebar o i filtri in UI
+
+        return view('articles.index', compact('articles', 'tags'));
     }
 
     public function show(Article $article)

@@ -5,7 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    
+    {{-- SEO & Meta Tags --}}
     <title>@yield('title', 'Mindspace - Psicologia e Mindfulness')</title>
+    <meta name="description" content="@yield('meta_description', 'Mindspace è il blog italiano dedicato interamente alla psicologia e alla mindfulness. Esplora la tua mente, trova l\'equilibrio e il benessere interiore.')">
+    <meta name="keywords" content="psicologia, mindfulness, benessere, salute mentale, meditazione, crescita personale">
+    
+    {{-- Open Graph / Facebook --}}
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:title" content="@yield('title', 'Mindspace - Psicologia e Mindfulness')">
+    <meta property="og:description" content="@yield('meta_description', 'Esplora la tua mente con Mindspace.')">
+    <meta property="og:image" content="{{ asset('favicon.ico') }}">
 
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -24,6 +35,12 @@
             background-attachment: fixed;
             background-position: center;
             color: #4a4a4a;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                background-attachment: scroll; /* Fix for mobile background issues */
+            }
         }
 
         .navbar {
@@ -62,6 +79,14 @@
             border-radius: 0 0 50px 50px;
         }
 
+        @media (max-width: 768px) {
+            .hero {
+                padding: 60px 0;
+                border-radius: 0 0 30px 30px;
+            }
+            .display-3 { font-size: 2.5rem; }
+        }
+
         .card-custom {
             border: none;
             border-radius: 24px;
@@ -95,19 +120,20 @@
         }
 
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .fade-in {
             animation: fadeIn 2s ease-out forwards;
+        }
+
+        .tracking-wider { letter-spacing: 0.1em; }
+
+        /* Mobile specific adjustments */
+        @media (max-width: 576px) {
+            .container { padding-left: 20px; padding-right: 20px; }
+            .quote-text { font-size: 1.5rem !important; }
         }
     </style>
 </head>
@@ -119,56 +145,49 @@
             <a class="navbar-brand logo-mindspace" href="{{ route('home') }}">
                 <i class="bi bi-flower1 text-success me-1"></i> <span class="fw-bold">Mind</span><span class="text-success fw-light">space</span>
             </a>
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="bi bi-list fs-1 text-white"></i>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto align-items-center">
+                <ul class="navbar-nav ms-auto align-items-center text-center">
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('home') }}#articoli">Articoli</a>
+                        <a class="nav-link {{ request()->routeIs('articles.index') && !request()->has('mine') ? 'active' : '' }}" href="{{ route('articles.index') }}">Articoli</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('contact.show') ? 'active' : '' }}" href="{{ route('contact.show') }}">Contatti</a>
                     </li>
 
                     @auth
-                    <li class="nav-item dropdown ms-lg-3">
-                        <a class="btn btn-light btn-sm text-success dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                            {{ Auth::user()->name }}
+                    <li class="nav-item dropdown ms-lg-3 mt-2 mt-lg-0">
+                        <a class="btn btn-light btn-sm text-success dropdown-toggle px-3 rounded-pill w-100" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-person-circle me-1"></i> {{ Auth::user()->name }}
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm">
-                            <li><a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a></li>
-                            <li><a class="dropdown-item" href="{{ route('articles.index') }}">I miei articoli</a></li>
-                            <li><a class="dropdown-item" href="{{ route('articles.create') }}">Crea articolo</a></li>
-                            <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Profilo</a></li>
+                        <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg rounded-4 p-3 mt-3">
+                            <li><a class="dropdown-item rounded-3" href="{{ route('dashboard') }}"><i class="bi bi-speedometer2 me-2"></i> Dashboard</a></li>
+                            <li><a class="dropdown-item rounded-3" href="{{ route('articles.index', ['mine' => 1]) }}"><i class="bi bi-journal-text me-2"></i> I miei articoli</a></li>
+                            <li><a class="dropdown-item rounded-3" href="{{ route('articles.create') }}"><i class="bi bi-plus-circle me-2"></i> Crea articolo</a></li>
+                            <li><a class="dropdown-item rounded-3" href="{{ route('profile.edit') }}"><i class="bi bi-person me-2"></i> Profilo</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
                             <li>
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
-                                    <button class="dropdown-item text-danger" type="submit">Logout</button>
+                                    <button class="dropdown-item rounded-3 text-danger" type="submit"><i class="bi bi-box-arrow-right me-2"></i> Logout</button>
                                 </form>
                             </li>
                         </ul>
                     </li>
-                    <!-- Logout diretto solo su mobile -->
-                    <li class="nav-item d-lg-none mt-3">
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <button class="btn btn-outline-danger btn-sm w-100" type="submit">Logout</button>
-                        </form>
-                    </li>
                     @else
-                    <li class="nav-item ms-lg-3">
+                    <li class="nav-item ms-lg-3 mt-3 mt-lg-0">
                         <a href="{{ route('login') }}" class="btn btn-link text-white text-decoration-none">Login</a>
                     </li>
-                    <li class="nav-item">
-                        <a href="{{ route('register') }}" class="btn btn-light btn-sm text-success px-3 rounded-pill">Unisciti a noi</a>
+                    <li class="nav-item mt-2 mt-lg-0">
+                        <a href="{{ route('register') }}" class="btn btn-light btn-sm text-success px-3 rounded-pill w-100">Unisciti a noi</a>
                     </li>
                     @endauth
                 </ul>
@@ -183,7 +202,7 @@
     <footer class="text-center text-muted">
         <div class="container">
             <h5 class="mb-3 text-dark fw-bold"><i class="bi bi-flower1 text-success me-1"></i> Mind<span class="text-success fw-light">space</span></h5>
-            <p class="mb-3">Il tuo rifugio per la mente e l'anima. Blog italiano di Psicologia e Mindfulness.</p>
+            <p class="mb-3 px-3">Il tuo rifugio per la mente e l'anima. Blog italiano di Psicologia e Mindfulness.</p>
             <div class="mb-4">
                 <a href="#" class="text-muted me-3"><i class="bi bi-instagram"></i></a>
                 <a href="#" class="text-muted me-3"><i class="bi bi-facebook"></i></a>

@@ -23,4 +23,12 @@ class Article extends Model
     {
         return $this->belongsToMany(Tag::class);
     }
+
+    // Calcolo tempo di lettura stimato (200 parole al minuto)
+    public function getReadTimeAttribute()
+    {
+        $words = str_word_count(strip_tags($this->content));
+        $minutes = ceil($words / 200);
+        return $minutes;
+    }
 }
