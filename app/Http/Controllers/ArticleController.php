@@ -24,8 +24,8 @@ class ArticleController extends Controller implements HasMiddleware
     public function index()
     {
         if (Auth::check()) {
-            // I miei articoli ordinati dal più recente
-            $articles = Auth::user()->articles()->with('tags')->latest()->paginate(12);
+            // I miei articoli ordinati dal più recente con caricamento relazioni per evitare N+1
+            $articles = Auth::user()->articles()->with(['user', 'tags'])->latest()->paginate(12);
         } else {
             // Tutti gli articoli ordinati dal più recente
             $articles = Article::with(['user', 'tags'])->latest()->paginate(12);
@@ -50,6 +50,7 @@ class ArticleController extends Controller implements HasMiddleware
         $data = $request->validate([
             'title' => 'required|min:5|max:255',
             'content' => 'required|min:10',
+            'thumbnail' => 'nullable|url',
             'tags' => 'nullable|array',
             'tags.*' => 'integer|exists:tags,id',
         ]);
@@ -57,6 +58,7 @@ class ArticleController extends Controller implements HasMiddleware
         $article = Auth::user()->articles()->create([
             'title' => $data['title'],
             'content' => $data['content'],
+            'thumbnail' => $data['thumbnail'] ?? null,
         ]);
 
         if (!empty($data['tags'])) {
@@ -80,6 +82,7 @@ class ArticleController extends Controller implements HasMiddleware
         $data = $request->validate([
             'title' => 'required|min:5|max:255',
             'content' => 'required|min:10',
+            'thumbnail' => 'nullable|url',
             'tags' => 'nullable|array',
             'tags.*' => 'integer|exists:tags,id',
         ]);
@@ -87,6 +90,7 @@ class ArticleController extends Controller implements HasMiddleware
         $article->update([
             'title' => $data['title'],
             'content' => $data['content'],
+            'thumbnail' => $data['thumbnail'] ?? $article->thumbnail,
         ]);
 
         $article->tags()->sync($data['tags'] ?? []);

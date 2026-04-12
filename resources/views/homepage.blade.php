@@ -6,7 +6,7 @@
 <div class="py-5 text-center fade-in" style="background: linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.7)), url('https://images.pexels.com/photos/33596970/pexels-photo-33596970.jpeg?auto=compress&cs=tinysrgb&w=1600'); background-size: cover; background-position: center; border-radius: 0 0 50px 50px;">
     <div class="container py-5">
         <blockquote class="blockquote">
-            <p class="fs-2 fw-light font-italic text-dark mb-4">“Se ascoltiamo dalla mente silenziosa, ogni canto di uccello e ogni sussurro dei rami di pino nel vento ci parleranno.”</p>
+            <p class="fs-2 fw-light fst-italic text-dark mb-4">“Se ascoltiamo dalla mente silenziosa, ogni canto di uccello e ogni sussurro dei rami di pino nel vento ci parleranno.”</p>
             <footer class="blockquote-footer mt-2 fs-5 text-success">Thich Nhat Hanh</footer>
         </blockquote>
     </div>
@@ -61,7 +61,7 @@
                             </div>
                         </div>
                         <h4 class="fw-bold mb-1 text-dark">{{ $article->title }}</h4>
-                        <small class="text-muted mb-3 d-block"><i class="bi bi-person me-1"></i> Di {{ $article->user->name }}</small>
+                        <small class="text-muted mb-3 d-block"><i class="bi bi-person me-1"></i> Di {{ $article->user?->name ?? 'Autore sconosciuto' }}</small>
                         
                         <p class="text-muted flex-grow-1">
                             {{ \Illuminate\Support\Str::limit($article->content, 130) }}
