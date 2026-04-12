@@ -1,58 +1,69 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Mindspace - Blog di Psicologia e Mindfulness
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Mindspace è un'applicazione web moderna dedicata alla divulgazione scientifica e alla riflessione sui temi della psicologia, del benessere mentale e della mindfulness. Il progetto è stato sviluppato come piattaforma di blogging completa, sicura e altamente performante.
 
-## About Laravel
+## Funzionalità Principali
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Blog e Contenuti
+- Esplorazione Articoli: Navigazione fluida tra gli ultimi approfondimenti pubblicati.
+- Sistema di Ricerca: Motore di ricerca integrato per trovare contenuti tramite parole chiave nel titolo o nel corpo dell'articolo.
+- Filtri per Tag: Classificazione degli articoli tramite tag cliccabili per una navigazione tematica.
+- Tempo di Lettura: Calcolo automatico del tempo stimato di lettura per ogni post.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Autenticazione e Area Riservata
+- Gestione Utenti: Registrazione, Accesso e Logout gestiti tramite Laravel Fortify.
+- Dashboard Autore: Un'area dedicata dove ogni utente può gestire i propri articoli.
+- CRUD Completo: Creazione, modifica e cancellazione degli articoli con interfaccia intuitiva.
+- Sicurezza: Protezione delle rotte tramite Middleware e autorizzazioni granulari tramite Laravel Policies.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Design e UX
+- Stile Zen: Design minimalista e pulito, ottimizzato per la lettura.
+- Mobile First: Interfaccia completamente responsive, ottimizzata per smartphone, tablet e desktop.
+- Effetti Visivi: Animazioni di fade-in e sfondi immersivi per un'esperienza utente rilassante.
+- Form Contatti: Sistema di messaggistica integrato per contattare l'amministrazione.
 
-## Learning Laravel
+## Stack Tecnologico
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- Framework PHP: [Laravel 11](https://laravel.com/)
+- Autenticazione: [Laravel Fortify](https://jetstream.laravel.com/fortify/introduction.html)
+- Database: MySQL / SQLite
+- Frontend: [Bootstrap 5](https://getbootstrap.com/), [Bootstrap Icons](https://icons.getbootstrap.com/)
+- Fonts: Poppins (Google Fonts)
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Installazione
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+1. Clona il repository:
+   ```bash
+   git clone <repository-url>
+   cd domenico_deruosi_progetto_finale_recupero
+   ```
 
-## Agentic Development
+2. Installa le dipendenze:
+   ```bash
+   composer install
+   npm install && npm run build
+   ```
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+3. Configura l'ambiente:
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
 
-```bash
-composer require laravel/boost --dev
+4. Esegui le migration:
+   ```bash
+   php artisan migrate
+   ```
 
-php artisan boost:install
-```
+5. Avvia il server:
+   ```bash
+   php artisan serve
+   ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+## Ottimizzazioni Implementate
+- Query Optimization: Risoluzione del problema N+1 tramite Eager Loading delle relazioni user e tags.
+- Security Hardening: Validazione rigorosa degli URL, protezione XSS e accessi null-safe nelle viste.
+- SEO Ready: Inserimento di Meta Tags dinamici e Open Graph per una condivisione social professionale.
 
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
+Sviluppato per promuovere la consapevolezza e il benessere interiore.
