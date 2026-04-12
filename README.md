@@ -67,3 +67,7 @@ Mindspace è un'applicazione web moderna dedicata alla divulgazione scientifica 
 
 ---
 Sviluppato per promuovere la consapevolezza e il benessere interiore.
+
+
+--- 
+*Progetto finale di recupero - Completato con successo*
