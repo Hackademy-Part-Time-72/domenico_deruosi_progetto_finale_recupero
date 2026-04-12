@@ -50,7 +50,7 @@ class ArticleController extends Controller implements HasMiddleware
         $data = $request->validate([
             'title' => 'required|min:5|max:255',
             'content' => 'required|min:10',
-            'thumbnail' => 'nullable|url',
+            'thumbnail' => ['nullable', 'url', 'regex:/^https?:\/\//'],
             'tags' => 'nullable|array',
             'tags.*' => 'integer|exists:tags,id',
         ]);
@@ -58,7 +58,7 @@ class ArticleController extends Controller implements HasMiddleware
         $article = Auth::user()->articles()->create([
             'title' => $data['title'],
             'content' => $data['content'],
-            'thumbnail' => $data['thumbnail'] ?? null,
+            'thumbnail' => $data['thumbnail'],
         ]);
 
         if (!empty($data['tags'])) {
@@ -82,7 +82,7 @@ class ArticleController extends Controller implements HasMiddleware
         $data = $request->validate([
             'title' => 'required|min:5|max:255',
             'content' => 'required|min:10',
-            'thumbnail' => 'nullable|url',
+            'thumbnail' => ['nullable', 'url', 'regex:/^https?:\/\//'],
             'tags' => 'nullable|array',
             'tags.*' => 'integer|exists:tags,id',
         ]);
@@ -90,7 +90,7 @@ class ArticleController extends Controller implements HasMiddleware
         $article->update([
             'title' => $data['title'],
             'content' => $data['content'],
-            'thumbnail' => $data['thumbnail'] ?? $article->thumbnail,
+            'thumbnail' => $data['thumbnail'],
         ]);
 
         $article->tags()->sync($data['tags'] ?? []);
