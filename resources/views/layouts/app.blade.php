@@ -27,6 +27,9 @@
                         </li>
                     @else
                         <li class="nav-item">
+                            <a class="nav-link" href="{{ route('articles.index') }}">Articles</a>
+                        </li>
+                        <li class="nav-item">
                             <span class="nav-link text-dark">Welcome, {{ Auth::user()->name }}</span>
                         </li>
                         <li class="nav-item">
