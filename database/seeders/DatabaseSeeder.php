@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Tag;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -19,5 +19,15 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
+
+        $tags = [
+            'ansia', 'stress', 'paura', 'trauma', 'terapia', 
+            'psicologia', 'mindfulness', 'meditazione', 
+            'benessere', 'mente', 'corpo', 'depressione'
+        ];
+
+        foreach ($tags as $tagName) {
+            Tag::create(['name' => $tagName]);
+        }
     }
 }
