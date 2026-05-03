@@ -13,6 +13,12 @@ class PublicController extends Controller
         return view('homepage', compact('articles'));
     }
 
+    public function blog()
+    {
+        $articles = Article::with(['user', 'tags'])->latest()->get();
+        return view('blog', compact('articles'));
+    }
+
     public function show(Article $article)
     {
         return view('articles.show', compact('article'));

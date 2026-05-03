@@ -13,12 +13,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $users = [
+            ['name' => 'Luigi', 'email' => 'luigi@example.com'],
+            ['name' => 'Davide', 'email' => 'davide@example.com'],
+            ['name' => 'Valentina', 'email' => 'valentina@example.com'],
+        ];
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        foreach ($users as $userData) {
+            User::factory()->create($userData);
+        }
 
         $tags = [
             'ansia', 'stress', 'paura', 'trauma', 'terapia', 
