@@ -4,26 +4,41 @@
 <style>
     .article-card {
         transition: transform 0.3s ease, box-shadow 0.3s ease;
-        border: 1px solid #dee2e6 !important;
+        border: 1px solid #d2b48c !important;
+        background-color: #ffffff;
     }
     .article-card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 1rem 3rem rgba(0,0,0,.175) !important;
-        border-color: #0d6efd !important;
+        box-shadow: 0 1rem 3rem rgba(139, 115, 85, .15) !important;
+        border-color: #2d5a27 !important;
     }
     .card-title-link {
-        color: inherit;
+        color: #2d5a27;
         text-decoration: none;
+        transition: color 0.2s;
     }
     .card-title-link:hover {
-        color: #0d6efd;
+        color: #4a7c44;
+    }
+    .btn-primary {
+        background-color: #2d5a27;
+        border-color: #2d5a27;
+    }
+    .btn-primary:hover {
+        background-color: #1e3d1a;
+        border-color: #1e3d1a;
+    }
+    .badge-custom {
+        background-color: #faf9f6;
+        color: #2d5a27;
+        border: 1px solid #d2b48c;
     }
 </style>
 
-<div class="bg-dark text-white py-5 mb-5 rounded shadow">
-    <div class="container">
-        <h1 class="display-3 fw-bold text-center">Blog di Psicologia & Benessere</h1>
-        <p class="lead text-center">Esplorando la mente, il corpo e l'anima.</p>
+<div class="py-5 mb-5 rounded shadow text-white" style="background-color: #2d5a27;">
+    <div class="container text-center">
+        <h1 class="display-3 fw-bold">Mindspace</h1>
+        <p class="lead">Esplorando la mente, il corpo e l'anima.</p>
     </div>
 </div>
 
@@ -53,7 +68,7 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             @foreach($article->tags as $tag)
-                                <span class="badge rounded-pill bg-light text-primary border border-primary me-1">{{ $tag->name }}</span>
+                                <span class="badge rounded-pill badge-custom me-1 px-3 py-2">{{ $tag->name }}</span>
                             @endforeach
                         </div>
                         <a href="{{ route('articles.show', $article) }}" class="btn btn-sm btn-primary rounded-pill px-3 shadow-sm">Leggi di più</a>

@@ -3,17 +3,23 @@
 @section('content')
 <style>
     .admin-article-card {
-        border-left: 5px solid #0d6efd !important;
+        border-left: 5px solid #2d5a27 !important;
         transition: all 0.2s ease;
+        background-color: #ffffff;
+        border: 1px solid #d2b48c;
     }
     .admin-article-card:hover {
-        background-color: #f8f9fa;
+        background-color: #faf9f6;
         transform: scale(1.02);
+    }
+    .btn-primary {
+        background-color: #2d5a27;
+        border-color: #2d5a27;
     }
 </style>
 
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="fw-bold">I miei Articoli</h1>
+    <h1 class="fw-bold" style="color: #2d5a27;">I miei Articoli</h1>
     <a href="{{ route('articles.create') }}" class="btn btn-primary shadow-sm">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-lg me-1" viewBox="0 0 16 16">
             <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
@@ -38,7 +44,7 @@
                     <p class="card-text text-muted small">{{ Str::limit($article->content, 100) }}</p>
                     <div class="mb-3">
                         @foreach($article->tags as $tag)
-                            <span class="badge bg-light text-primary border border-primary tiny-badge">{{ $tag->name }}</span>
+                            <span class="badge rounded-pill me-1 px-2 py-1" style="background-color: #faf9f6; color: #2d5a27; border: 1px solid #d2b48c; font-size: 0.7rem;">{{ $tag->name }}</span>
                         @endforeach
                     </div>
                 </div>

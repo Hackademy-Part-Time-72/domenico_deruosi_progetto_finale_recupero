@@ -7,17 +7,28 @@
     <!-- Bootstrap 5 CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        body {
+            background-color: #f5f5dc; /* Beige */
+            color: #4a4a4a;
+        }
         .navbar-custom {
-            background-color: #e8f5e9; /* Verde chiaro */
-            border-bottom: 1px solid #c8e6c9;
+            background-color: #faf9f6; /* Light Beige */
+            border-bottom: 2px solid #d2b48c;
         }
         .logo-text {
             font-weight: 700;
             letter-spacing: -1px;
-            color: #2e7d32;
+            color: #2d5a27; /* Dark Green */
         }
         .logo-icon {
-            color: #4caf50;
+            color: #2d5a27;
+        }
+        .nav-link {
+            color: #5d5d5d !important;
+            font-weight: 500;
+        }
+        .nav-link:hover {
+            color: #2d5a27 !important;
         }
     </style>
 </head>
