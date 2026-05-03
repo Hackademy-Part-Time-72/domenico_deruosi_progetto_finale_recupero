@@ -23,6 +23,11 @@ class PublicController extends Controller
         return view('contact');
     }
 
+    public function aboutUs()
+    {
+        return view('about-us');
+    }
+
     public function send(Request $request)
     {
         $request->validate([
