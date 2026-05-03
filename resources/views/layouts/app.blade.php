@@ -40,22 +40,22 @@
                     </li>
                     @guest
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">Login</a>
+                            <a class="nav-link" href="{{ route('login') }}">Accedi</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">Register</a>
+                            <a class="nav-link" href="{{ route('register') }}">Registrati</a>
                         </li>
                     @else
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('articles.index') }}">Articles</a>
+                            <a class="nav-link" href="{{ route('articles.index') }}">I miei Articoli</a>
                         </li>
                         <li class="nav-item">
-                            <span class="nav-link text-dark">Welcome, {{ Auth::user()->name }}</span>
+                            <span class="nav-link text-dark">Benvenuto, {{ Auth::user()->name }}</span>
                         </li>
                         <li class="nav-item">
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-                                <button type="submit" class="btn btn-link nav-link">Logout</button>
+                                <button type="submit" class="btn btn-link nav-link">Esci</button>
                             </form>
                         </li>
                     @endguest

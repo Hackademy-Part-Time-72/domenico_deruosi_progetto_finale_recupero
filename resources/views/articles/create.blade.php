@@ -5,22 +5,22 @@
     <div class="col-md-8">
         <div class="card shadow">
             <div class="card-header bg-primary text-white">
-                <h4 class="mb-0">Create New Article</h4>
+                <h4 class="mb-0">Crea Nuovo Articolo</h4>
             </div>
             <div class="card-body">
                 <form action="{{ route('articles.store') }}" method="POST">
                     @csrf
                     <div class="mb-4">
-                        <label for="title" class="form-label fw-bold">Title</label>
-                        <input type="text" name="title" id="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title') }}" placeholder="Enter article title" required>
+                        <label for="title" class="form-label fw-bold">Titolo</label>
+                        <input type="text" name="title" id="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title') }}" placeholder="Inserisci il titolo dell'articolo" required>
                         @error('title')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 
                     <div class="mb-4">
-                        <label for="content" class="form-label fw-bold">Content</label>
-                        <textarea name="content" id="content" rows="6" class="form-control @error('content') is-invalid @enderror" placeholder="Write your content here..." required>{{ old('content') }}</textarea>
+                        <label for="content" class="form-label fw-bold">Contenuto</label>
+                        <textarea name="content" id="content" rows="6" class="form-control @error('content') is-invalid @enderror" placeholder="Scrivi qui il tuo contenuto..." required>{{ old('content') }}</textarea>
                         @error('content')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -47,8 +47,8 @@
                     </div>
 
                     <div class="d-flex justify-content-between align-items-center border-top pt-4">
-                        <a href="{{ route('articles.index') }}" class="btn btn-outline-secondary">Back to List</a>
-                        <button type="submit" class="btn btn-primary px-4">Publish Article</button>
+                        <a href="{{ route('articles.index') }}" class="btn btn-outline-secondary">Torna alla lista</a>
+                        <button type="submit" class="btn btn-primary px-4">Pubblica Articolo</button>
                     </div>
                 </form>
             </div>

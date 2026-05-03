@@ -48,7 +48,7 @@ class ArticleController extends Controller
             $article->tags()->sync($request->tags);
         }
 
-        return redirect()->route('articles.index')->with('success', 'Article created successfully.');
+        return redirect()->route('articles.index')->with('success', 'Articolo creato con successo.');
     }
 
     /**
@@ -87,7 +87,7 @@ class ArticleController extends Controller
 
         $article->tags()->sync($request->tags ?? []);
 
-        return redirect()->route('articles.index')->with('success', 'Article updated successfully.');
+        return redirect()->route('articles.index')->with('success', 'Articolo aggiornato con successo.');
     }
 
     /**
@@ -101,6 +101,6 @@ class ArticleController extends Controller
 
         $article->delete();
 
-        return redirect()->route('articles.index')->with('success', 'Article deleted successfully.');
+        return redirect()->route('articles.index')->with('success', 'Articolo eliminato con successo.');
     }
 }

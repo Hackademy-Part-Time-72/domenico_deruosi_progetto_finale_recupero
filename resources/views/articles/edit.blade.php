@@ -5,14 +5,14 @@
     <div class="col-md-8">
         <div class="card shadow">
             <div class="card-header bg-warning text-dark">
-                <h4 class="mb-0">Edit Article</h4>
+                <h4 class="mb-0">Modifica Articolo</h4>
             </div>
             <div class="card-body">
                 <form action="{{ route('articles.update', $article) }}" method="POST">
                     @csrf
                     @method('PUT')
                     <div class="mb-4">
-                        <label for="title" class="form-label fw-bold">Title</label>
+                        <label for="title" class="form-label fw-bold">Titolo</label>
                         <input type="text" name="title" id="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title', $article->title) }}" required>
                         @error('title')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -20,7 +20,7 @@
                     </div>
 
                     <div class="mb-4">
-                        <label for="content" class="form-label fw-bold">Content</label>
+                        <label for="content" class="form-label fw-bold">Contenuto</label>
                         <textarea name="content" id="content" rows="6" class="form-control @error('content') is-invalid @enderror" required>{{ old('content', $article->content) }}</textarea>
                         @error('content')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -48,8 +48,8 @@
                     </div>
 
                     <div class="d-flex justify-content-between align-items-center border-top pt-4">
-                        <a href="{{ route('articles.index') }}" class="btn btn-outline-secondary">Cancel</a>
-                        <button type="submit" class="btn btn-warning px-4">Update Article</button>
+                        <a href="{{ route('articles.index') }}" class="btn btn-outline-secondary">Annulla</a>
+                        <button type="submit" class="btn btn-warning px-4">Aggiorna Articolo</button>
                     </div>
                 </form>
             </div>

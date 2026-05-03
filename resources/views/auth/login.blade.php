@@ -4,12 +4,12 @@
 <div class="row justify-content-center">
     <div class="col-md-6">
         <div class="card">
-            <div class="card-header">Login</div>
+            <div class="card-header">Accedi</div>
             <div class="card-body">
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
                     <div class="mb-3">
-                        <label for="email" class="form-label">Email Address</label>
+                        <label for="email" class="form-label">Indirizzo Email</label>
                         <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="email" value="{{ old('email') }}" required autofocus>
                         @error('email')
                             <span class="invalid-feedback" role="alert">
@@ -28,9 +28,9 @@
                     </div>
                     <div class="mb-3 form-check">
                         <input type="checkbox" name="remember" class="form-check-input" id="remember">
-                        <label class="form-check-label" for="remember">Remember Me</label>
+                        <label class="form-check-label" for="remember">Ricordami</label>
                     </div>
-                    <button type="submit" class="btn btn-primary">Login</button>
+                    <button type="submit" class="btn btn-primary w-100">Accedi</button>
                 </form>
             </div>
         </div>
