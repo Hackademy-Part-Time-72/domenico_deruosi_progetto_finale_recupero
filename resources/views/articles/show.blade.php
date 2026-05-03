@@ -25,7 +25,7 @@
             </div>
 
             <div class="mt-5 pt-4 border-top">
-                <a href="{{ route('homepage') }}" class="btn btn-outline-primary">← Back to Articles</a>
+                <a href="{{ route('homepage') }}" class="btn btn-outline-primary">Indietro</a>
             </div>
         </article>
     </div>
