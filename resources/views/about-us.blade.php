@@ -6,6 +6,10 @@
         <div class="bg-white p-5 rounded shadow-sm border" style="border-color: #d2b48c !important;">
             <h1 class="display-4 fw-bold mb-4" style="color: #2d5a27;">Chi Siamo</h1>
             
+            <div class="mb-5">
+                <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=1200&h=400&q=80" alt="Il nostro team sorridente" class="img-fluid rounded shadow-sm border" style="border-color: #d2b48c !important; width: 100%; object-fit: cover; max-height: 400px;">
+            </div>
+
             <div class="row align-items-center mb-5">
                 <div class="col-lg-6">
                     <p class="fs-5 text-secondary leading-relaxed">
