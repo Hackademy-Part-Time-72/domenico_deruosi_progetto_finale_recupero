@@ -36,7 +36,7 @@
 </style>
 
 <div class="mb-5">
-    <h1 class="display-4 fw-bold" style="color: #2d5a27;">Il Nostro Blog</h1>
+    <h1 class="display-4 fw-bold section-title" style="color: #2d5a27;">Il Nostro Blog</h1>
     <p class="lead text-secondary">Scopri tutti i nostri articoli dedicati al benessere e alla crescita personale.</p>
 </div>
 

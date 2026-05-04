@@ -7,13 +7,24 @@
     <!-- Bootstrap 5 CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
         body {
             background-color: #f5f5dc; /* Beige */
             color: #4a4a4a;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        main {
+            flex: 1;
         }
         .navbar-custom {
             background-color: #faf9f6; /* Light Beige */
             border-bottom: 2px solid #d2b48c;
+            padding: 0.8rem 0;
         }
         .logo-text {
             font-weight: 700;
@@ -26,9 +37,83 @@
         .nav-link {
             color: #5d5d5d !important;
             font-weight: 500;
+            transition: all 0.2s ease;
+            padding: 0.5rem 1rem !important;
         }
         .nav-link:hover {
             color: #2d5a27 !important;
+            background-color: rgba(45, 90, 39, 0.05);
+            border-radius: 8px;
+        }
+        
+        /* Custom UI improvements */
+        .card {
+            border: 1px solid #d2b48c;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .btn-primary {
+            background-color: #2d5a27;
+            border-color: #2d5a27;
+            font-weight: 600;
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #1e3d1a;
+            border-color: #1e3d1a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(45, 90, 39, 0.2);
+        }
+        .btn-outline-primary {
+            color: #2d5a27;
+            border-color: #2d5a27;
+            border-radius: 50px;
+        }
+        .btn-outline-primary:hover {
+            background-color: #2d5a27;
+            border-color: #2d5a27;
+        }
+
+        .footer-custom {
+            background-color: #2d5a27;
+            color: #faf9f6;
+            padding: 4rem 0 2rem 0;
+            margin-top: 5rem;
+        }
+        .footer-link {
+            color: #faf9f6;
+            text-decoration: none;
+            transition: all 0.2s;
+            opacity: 0.9;
+        }
+        .footer-link:hover {
+            opacity: 1;
+            transform: scale(1.1);
+            color: #ffffff;
+        }
+        .social-icon {
+            width: 28px;
+            height: 28px;
+            margin: 0 12px;
+        }
+        
+        .section-title {
+            position: relative;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 60px;
+            height: 4px;
+            background-color: #2d5a27;
+            border-radius: 2px;
         }
     </style>
 </head>
@@ -89,10 +174,10 @@
         <div class="container text-center">
             <div class="mb-4">
                 <a class="d-flex align-items-center justify-content-center text-decoration-none mb-3" href="{{ url('/') }}">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#faf9f6" class="bi bi-circle-half me-2" viewBox="0 0 16 16">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#1e3d1a" class="bi bi-circle-half me-2" viewBox="0 0 16 16">
                         <path d="M8 15V1ad.5.5 0 0 1 0 14zm0 1A7 7 0 1 1 8 0a7 7 0 0 1 0 14z"/>
                     </svg>
-                    <span class="h4 mb-0 fw-bold" style="color: #faf9f6;">Mindspace</span>
+                    <span class="h4 mb-0 fw-bold" style="color: #1e3d1a;">Mindspace</span>
                 </a>
                 <p class="small mb-4">Divulgazione psicologica e benessere mentale.</p>
                 <div class="d-flex justify-content-center mb-4">

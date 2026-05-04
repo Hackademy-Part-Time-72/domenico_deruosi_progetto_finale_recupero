@@ -43,6 +43,9 @@
 </div>
 
 <div class="row">
+    <div class="col-12">
+        <h2 class="section-title">Ultimi Articoli</h2>
+    </div>
     @forelse($articles as $article)
         <div class="col-md-6 mb-4">
             <div class="card h-100 shadow-sm article-card">
