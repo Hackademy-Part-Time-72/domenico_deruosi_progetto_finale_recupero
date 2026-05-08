@@ -22,28 +22,82 @@
             flex: 1;
         }
         .navbar-custom {
-            background-color: #faf9f6; /* Light Beige */
-            border-bottom: 2px solid #d2b48c;
-            padding: 0.8rem 0;
+            background-color: rgba(250, 249, 246, 0.95); /* Light Beige with transparency */
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(210, 180, 140, 0.3);
+            padding: 0.75rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        .navbar-custom.scrolled {
+            padding: 0.5rem 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
         }
         .logo-text {
-            font-weight: 700;
-            letter-spacing: -1px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
             color: #2d5a27; /* Dark Green */
+            font-size: 1.5rem;
         }
         .logo-icon {
             color: #2d5a27;
+            transition: transform 0.3s ease;
+        }
+        .navbar-brand:hover .logo-icon {
+            transform: rotate(180deg);
         }
         .nav-link {
-            color: #5d5d5d !important;
+            color: #4a4a4a !important;
             font-weight: 500;
-            transition: all 0.2s ease;
-            padding: 0.5rem 1rem !important;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1.25rem !important;
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: #2d5a27;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        .nav-link:hover::after {
+            width: 30%;
         }
         .nav-link:hover {
             color: #2d5a27 !important;
-            background-color: rgba(45, 90, 39, 0.05);
-            border-radius: 8px;
+        }
+        .nav-link.active {
+            color: #2d5a27 !important;
+        }
+        .nav-link.active::after {
+            width: 30%;
+        }
+        .btn-auth {
+            border-radius: 50px;
+            padding: 0.5rem 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .btn-login {
+            color: #2d5a27 !important;
+            background: transparent;
+        }
+        .btn-register {
+            background-color: #2d5a27;
+            color: #faf9f6 !important;
+            margin-left: 10px;
+        }
+        .btn-register:hover {
+            background-color: #1e3d1a;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(45, 90, 39, 0.2);
         }
         
         /* Custom UI improvements */
@@ -118,49 +172,57 @@
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light navbar-custom mb-4 shadow-sm">
+    <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
-                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-circle-half me-2 logo-icon" viewBox="0 0 16 16">
-                    <path d="M8 15V1ad.5.5 0 0 1 0 14zm0 1A7 7 0 1 1 8 0a7 7 0 0 1 0 14z"/>
-                </svg>
-                <span class="logo-text h3 mb-0">Mindspace</span>
+                <div class="logo-container me-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-circle-half logo-icon" viewBox="0 0 16 16">
+                        <path d="M8 15V1ad.5.5 0 0 1 0 14zm0 1A7 7 0 1 1 8 0a7 7 0 0 1 0 14z"/>
+                    </svg>
+                </div>
+                <span class="logo-text">Mindspace</span>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
+                <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('articles.blog') }}">Blog</a>
+                        <a class="nav-link {{ request()->routeIs('articles.blog') ? 'active' : '' }}" href="{{ route('articles.blog') }}">Blog</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('about.us') }}">Chi Siamo</a>
+                        <a class="nav-link {{ request()->routeIs('about.us') ? 'active' : '' }}" href="{{ route('about.us') }}">Chi Siamo</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('contact') }}">Contattaci</a>
+                        <a class="nav-link {{ request()->routeIs('contact') ? 'active' : '' }}" href="{{ route('contact') }}">Contattaci</a>
                     </li>
-                    @guest
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">Accedi</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">Registrati</a>
-                        </li>
-                    @else
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('articles.index') }}">I miei Articoli</a>
-                        </li>
-                        <li class="nav-item">
-                            <span class="nav-link text-dark">Benvenuto, {{ Auth::user()->name }}</span>
-                        </li>
-                        <li class="nav-item">
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <button type="submit" class="btn btn-link nav-link">Esci</button>
-                            </form>
-                        </li>
-                    @endguest
+                    <div class="ms-lg-3 d-flex align-items-center">
+                        @guest
+                            <li class="nav-item">
+                                <a class="nav-link btn-auth btn-login" href="{{ route('login') }}">Accedi</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn btn-auth btn-register" href="{{ route('register') }}">Registrati</a>
+                            </li>
+                        @else
+                            <li class="nav-item">
+                                <a class="nav-link {{ request()->routeIs('articles.index') ? 'active' : '' }}" href="{{ route('articles.index') }}">I miei Articoli</a>
+                            </li>
+                            <li class="nav-item dropdown ms-lg-2">
+                                <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <span class="me-1">Benvenuto, {{ Auth::user()->name }}</span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm" aria-labelledby="navbarDropdown">
+                                    <li>
+                                        <form method="POST" action="{{ route('logout') }}">
+                                            @csrf
+                                            <button type="submit" class="dropdown-item text-danger">Esci</button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                        @endguest
+                    </div>
                 </ul>
             </div>
         </div>
@@ -206,5 +268,15 @@
 
     <!-- Bootstrap 5 JS Bundle CDN -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar-custom');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
 </body>
 </html>
