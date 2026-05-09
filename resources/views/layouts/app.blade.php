@@ -100,6 +100,58 @@
             box-shadow: 0 4px 12px rgba(45, 90, 39, 0.2);
         }
         
+        /* Global Card Styles */
+        .custom-card {
+            border: none;
+            border-radius: 20px;
+            overflow: hidden;
+            background: #ffffff;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+        }
+        .custom-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(45, 90, 39, 0.12) !important;
+        }
+        .card-img-wrapper {
+            position: relative;
+            overflow: hidden;
+            height: 200px;
+        }
+        .card-img-top {
+            transition: transform 0.6s ease;
+            object-fit: cover;
+            height: 100%;
+        }
+        .custom-card:hover .card-img-top {
+            transform: scale(1.1);
+        }
+        .card-category {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(45, 90, 39, 0.85);
+            backdrop-filter: blur(5px);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            z-index: 10;
+        }
+        .card-content {
+            padding: 1.5rem;
+        }
+        .card-meta {
+            font-size: 0.8rem;
+            color: #888;
+            margin-bottom: 10px;
+        }
+        .card-meta i {
+            margin-right: 5px;
+            color: #2d5a27;
+        }
+        
         /* Custom UI improvements */
         .card {
             border: 1px solid #d2b48c;
