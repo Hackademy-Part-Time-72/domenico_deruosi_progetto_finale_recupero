@@ -73,7 +73,7 @@
     <h2 class="fw-800 mb-3" style="color: var(--primary);">Pronto a iniziare il viaggio?</h2>
     <p class="text-secondary opacity-75 mb-5 mx-auto" style="max-width: 600px;">Esplora i nostri articoli o mettiti in contatto con noi per qualsiasi domanda o curiosità sul mondo della psicologia.</p>
     <div class="d-flex justify-content-center gap-3">
-        <a href="{{ route('blog') }}" class="btn btn-primary rounded-pill px-5 py-3 fw-800">Leggi il Blog</a>
+        <a href="{{ route('articles.blog') }}" class="btn btn-primary rounded-pill px-5 py-3 fw-800">Leggi il Blog</a>
         <a href="{{ route('contact') }}" class="btn btn-outline-primary rounded-pill px-5 py-3 fw-800">Contattaci</a>
     </div>
 </div>
