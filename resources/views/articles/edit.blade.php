@@ -1,41 +1,47 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="row justify-content-center py-5">
-    <div class="col-md-8">
-        <div class="card border-0 shadow-sm rounded-4">
-            <div class="card-header bg-white border-0 pt-4 px-4">
-                <h2 class="fw-bold mb-0" style="color: #856404;">Modifica Articolo</h2>
-                <p class="text-muted small">Aggiorna le informazioni del tuo articolo.</p>
-            </div>
-            <div class="card-body p-4">
+<div class="row justify-content-center py-5 reveal">
+    <div class="col-lg-8">
+        <!-- Dashboard Breadcrumb -->
+        <div class="mb-4">
+            <a href="{{ route('articles.index') }}" class="text-decoration-none text-muted small fw-bold text-uppercase tracking-widest">
+                &larr; Torna alla Dashboard
+            </a>
+        </div>
+
+        <div class="card border-0 shadow-2xl rounded-5 overflow-hidden">
+            <div class="card-body p-5">
+                <div class="mb-5">
+                    <h2 class="display-6 fw-800 mb-2" style="color: var(--primary);">Modifica Articolo</h2>
+                    <p class="text-secondary opacity-75">Perfeziona il tuo contenuto per la community di Mindspace.</p>
+                </div>
+
                 <form action="{{ route('articles.update', $article) }}" method="POST">
                     @csrf
                     @method('PUT')
-                    <div class="mb-4">
-                        <label for="title" class="form-label fw-bold">Titolo</label>
-                        <input type="text" name="title" id="title" class="form-control rounded-pill px-4 @error('title') is-invalid @enderror" value="{{ old('title', $article->title) }}" required>
+                    
+                    <!-- Title Input -->
+                    <div class="mb-5">
+                        <label for="title" class="form-label fw-800 text-uppercase small tracking-wider mb-3" style="color: var(--accent);">Titolo dell'Articolo</label>
+                        <input type="text" name="title" id="title" 
+                            class="form-control form-control-lg border-0 bg-light rounded-4 px-4 py-3 @error('title') is-invalid @enderror" 
+                            value="{{ old('title', $article->title) }}" 
+                            placeholder="Es: L'importanza della resilienza..." required>
                         @error('title')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 
-                    <div class="mb-4">
-                        <label for="content" class="form-label fw-bold">Contenuto</label>
-                        <textarea name="content" id="content" rows="8" class="form-control rounded-4 p-4 @error('content') is-invalid @enderror" required>{{ old('content', $article->content) }}</textarea>
-                        @error('content')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-
-                    <div class="mb-4">
-                        <label class="form-label fw-bold d-block mb-3">Seleziona i Tags</label>
+                    <!-- Tags Selection -->
+                    <div class="mb-5">
+                        <label class="form-label fw-800 text-uppercase small tracking-wider mb-3" style="color: var(--accent);">Tags Associati</label>
                         <div class="d-flex flex-wrap gap-2">
                             @foreach($tags as $tag)
                                 <div class="tag-selector">
                                     <input type="checkbox" class="btn-check" name="tags[]" value="{{ $tag->id }}" id="tag{{ $tag->id }}" autocomplete="off"
                                         {{ (is_array(old('tags')) && in_array($tag->id, old('tags'))) || $article->tags->contains($tag->id) ? 'checked' : '' }}>
-                                    <label class="btn btn-outline-success btn-sm rounded-pill px-3" for="tag{{ $tag->id }}">{{ $tag->name }}</label>
+                                    <label class="btn btn-outline-tag rounded-pill px-4 py-2 small fw-bold" for="tag{{ $tag->id }}">#{{ $tag->name }}</label>
                                 </div>
                             @endforeach
                         </div>
@@ -44,18 +50,56 @@
                         @enderror
                     </div>
 
-                    <div class="d-flex justify-content-between align-items-center mt-5">
-                        <a href="{{ route('articles.index') }}" class="btn btn-link text-decoration-none text-muted">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left me-1" viewBox="0 0 16 16">
-                                <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
-                            </svg>
-                            Annulla e torna indietro
-                        </a>
-                        <button type="submit" class="btn btn-warning rounded-pill px-5 shadow-sm">Aggiorna Articolo</button>
+                    <!-- Content Textarea -->
+                    <div class="mb-5">
+                        <label for="content" class="form-label fw-800 text-uppercase small tracking-wider mb-3" style="color: var(--accent);">Corpo dell'Articolo</label>
+                        <textarea name="content" id="content" rows="12" 
+                            class="form-control border-0 bg-light rounded-4 p-4 @error('content') is-invalid @enderror" 
+                            placeholder="Continua a scrivere il tuo viaggio..." required>{{ old('content', $article->content) }}</textarea>
+                        @error('content')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="text-end pt-3">
+                        <button type="submit" class="btn btn-primary btn-lg rounded-pill px-5 py-3 shadow-lg fw-bold">
+                            Salva Modifiche
+                        </button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+<style>
+    .fw-800 { font-weight: 800; }
+    .tracking-widest { letter-spacing: 0.15em; }
+    .tracking-wider { letter-spacing: 0.1em; }
+    .shadow-2xl { box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08); }
+    
+    .bg-light { background-color: #f8f9fa !important; }
+    
+    .btn-outline-tag {
+        border-color: #dee2e6;
+        color: #6c757d;
+        background: white;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-check:checked + .btn-outline-tag {
+        background-color: var(--primary);
+        border-color: var(--primary);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(45, 90, 39, 0.2);
+    }
+    
+    .form-control:focus {
+        background-color: #fff !important;
+        box-shadow: 0 0 0 4px var(--primary-soft);
+        outline: none;
+    }
+</style>
 @endsection
