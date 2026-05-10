@@ -28,7 +28,6 @@
         <div class="d-flex align-items-center justify-content-between py-4 border-top border-bottom">
             <div class="d-flex align-items-center">
                 <span class="h5 fw-800 mb-0 me-3 text-uppercase small tracking-widest" style="color: var(--primary);">Ultime Riflessioni</span>
-                <span class="badge rounded-pill bg-primary-soft text-primary px-3 py-2 small fw-bold">Top 10</span>
             </div>
             <a href="{{ route('articles.blog') }}" class="text-decoration-none text-dark fw-bold small text-uppercase tracking-wider hover-accent">
                 Archivio Completo &rarr;
